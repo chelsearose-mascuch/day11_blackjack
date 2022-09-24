@@ -45,16 +45,13 @@ def calculate_score(hand):
     while loop is True:
         score=sum(hand)
         if score == 21:
-            if 11 in hand and 10 in hand and len(hand) ==2:
+            if len(hand) == 2:
                 score = 0
             break
-        elif score > 21:
-            if hand.count(11) == 0:
-                break
-            else:
-                hand.remove(11)
-                hand.append(1)
-                continue
+        elif score > 21 and 11 in hand:
+            hand.remove(11)
+            hand.append(1)
+            continue
         else:
             loop = False
     return score
@@ -102,17 +99,20 @@ def run_blackjack():
                 player_hand.append(deal_card())
             else:
                 break
-    while gameover == False:
+    # while gameover == False:
+    #     dealer_score=calculate_score(dealer_hand)
+    #     if dealer_score==0 or dealer_score>21:
+    #         gameover = True
+    #         break
+    #     if dealer_score < 17:
+    #         dealer_hand.append(deal_card())
+    #         continue
+    #     else:
+    #         gameover = True
+    #         break
+    while dealer_score !=0 and dealer_score < 17:
+        dealer_hand.append(deal_card())
         dealer_score=calculate_score(dealer_hand)
-        if dealer_score==0 or dealer_score>21:
-            gameover = True
-            break
-        if dealer_score < 17:
-            dealer_hand.append(deal_card())
-            continue
-        else:
-            gameover = True
-            break
     print("")
     print('FINAL:')
     print("Player hand:",player_hand,"score:",player_score)
