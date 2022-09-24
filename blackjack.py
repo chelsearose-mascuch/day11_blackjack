@@ -45,9 +45,10 @@ def calculate_score(hand):
     while loop is True:
         score=sum(hand)
         if score == 21:
-            score = 0
+            if 11 in hand and 10 in hand and len(hand) ==2:
+                score = 0
             break
-        if score > 21:
+        elif score > 21:
             if hand.count(11) == 0:
                 break
             else:
@@ -93,7 +94,7 @@ def run_blackjack():
         print("")
         print("Player hand:",player_hand,"score:",player_score)
         print("Dealer card:",dealer_hand[0])
-        if player_score == 0 or player_score>21:
+        if player_score == 0 or player_score>=21:
             gameover=True
         else:
             deal = input("Would you like to draw a card? y/n: ")
